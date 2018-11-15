@@ -1,0 +1,7 @@
+./target/*
+./target/**
+./out/*
+./out/**
+.idea/**
+.idea/*
+.idea
