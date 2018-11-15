@@ -73,7 +73,7 @@ case class ReadSequenceFile(fileName: String) {
 
 }
 
-object ReadAndWrite {
+object ReadAndWriteSequence {
 
   private val log = Logger.getLogger(WriteSequenceFile.toString)
 

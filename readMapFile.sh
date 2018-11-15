@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-hadoop fs -text out/map/test.data
+hadoop fs -text out/map/file.data/data
