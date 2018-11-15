@@ -40,35 +40,6 @@ case class WriteSequenceFile(fileName: String) {
 
 }
 
-case class WriteMapFile(fileName: String) {
-
-
-  def write(): Unit = {
-
-    import org.apache.hadoop.fs.FileSystem
-
-    val uri = fileName
-    import org.apache.hadoop.io.MapFile.Writer
-
-    val conf = new org.apache.hadoop.conf.Configuration()
-
-    val fs = FileSystem.get(conf)
-
-    try {
-      val writer = new MapFile.Writer(conf,
-        new Path(uri),
-        Writer.keyClass(classOf[IntWritable]),
-        Writer.valueClass(classOf[IntWritable]))
-//        Writer.compression(SequenceFile.CompressionType.NONE))
-      for (x <- 1 to 100) {
-        writer.append(new IntWritable(x), new IntWritable(x * x))
-      }
-      writer.close()
-    }
-  }
-
-}
-
 case class ReadSequenceFile(fileName: String) {
 
   private val log = Logger.getLogger(classOf[ReadSequenceFile].getName)
@@ -107,17 +78,9 @@ object ReadAndWrite {
   private val log = Logger.getLogger(WriteSequenceFile.toString)
 
   def main(arg: Array[String]): Unit = {
-    val label: String = util.Arrays.toString(arg.asInstanceOf[Array[Object]])
-    log.info(label)
-
     val sequenceFileName = s"./out/sequence/file.data"
     WriteSequenceFile(sequenceFileName).write()
 
-    val mapFileName = s"./out/map/file.data"
-    WriteMapFile(mapFileName).write()
-
-    val content = ReadSequenceFile(sequenceFileName).read()
-    log.info(content.mkString(","))
   }
 
 }
